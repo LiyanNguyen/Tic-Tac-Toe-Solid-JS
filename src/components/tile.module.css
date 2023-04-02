@@ -1,0 +1,156 @@
+.gameBoard {
+	width: 460px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+}
+
+.tile {
+	width: 140px;
+	height: 140px;
+	background-color: var(--semiDarkNavy);
+	box-shadow: inset 0px -8px 0px #10212A;
+	border-radius: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.image {
+	width: 64px;
+	height: 64px;
+}
+
+.resetButton {
+	width: 52px;
+	height: 52px;
+	background: var(--silver);
+	box-shadow: inset 0px -4px 0px #6B8997;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: 0.15s ease;
+	margin-left: auto;
+}
+
+.resetButton:hover {
+	background-color: var(--silverHover);
+}
+
+.smallImage {
+	width: 20px;
+	height: 20px;
+}
+
+.turnIndicator {
+	width: 140px;
+	height: 52px;
+	background-color: var(--semiDarkNavy);
+	box-shadow: inset 0px -4px 0px #10212A;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	padding-bottom: 2px;
+}
+
+.turnIndicator p {
+	color: var(--silver);
+	font-weight: 700;
+}
+
+.boardHeader {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	width: 460px;
+}
+
+.headerLeft {
+	display: flex;
+	gap: 10px;
+	width: 140px
+}
+.headerLeftImage {
+	width: 32px;
+	height: 32px
+}
+
+.boardFooter {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	width: 460px;
+}
+
+.boardFooter div {
+	width: 140px;
+	height: 72px;
+	border-radius: 15px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+}
+
+.boardFooter div:nth-child(1) {
+	background-color: var(--lightBlue);
+}
+.boardFooter div:nth-child(2) {
+	background-color: var(--silver);
+}
+.boardFooter div:nth-child(3) {
+	background-color: var(--lightYellow);
+}
+
+.boardFooter div p {
+	color: var(--darkNavy);
+	font-size: 14px;
+}
+
+.score {
+	color: var(--darkNavy);
+	font-weight: 700;
+	font-size: 24px;
+}
+
+@media screen and (max-width: 500px) {
+	.gameBoard {
+		width: 328px;
+	}
+	.boardHeader {
+		width: 328px;
+	}
+	.headerLeft {
+		width: 96px;
+	}
+	.turnIndicator {
+		width: 96px;
+		height: 40px;
+		padding-bottom: 3px;
+	}
+	.boardFooter {
+		width: 328px;
+	}
+	.boardFooter div {
+		width: 96px;
+	}
+	.tile {
+		width: 96px;
+		height: 96px;
+		border-radius: 10px;
+	}
+	.resetButton {
+		width: 40px;
+		height: 40px;
+	}
+	.smallImage {
+		width: 16px;
+		height: 16px;
+	}
+}
