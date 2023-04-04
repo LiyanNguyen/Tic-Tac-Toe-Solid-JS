@@ -19,19 +19,3 @@
 	padding: 0;
 	box-sizing: border-box;
 }
-
-.headingLarge {
-	font-size: 40px;
-}
-
-.headingMedium {
-	font-size: 24px;
-}
-
-.headingSmall {
-	font-size: 20px;
-
-}
-.headingExtraSmall {
-	font-size: 16px;
-}

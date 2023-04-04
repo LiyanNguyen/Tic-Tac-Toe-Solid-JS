@@ -8,7 +8,7 @@ import XHover from "../assets/XHover.png"
 type Props = {
 	xTurn: boolean
 	setXTurn: (value: boolean) => void
-	boardArray: number[]
+	boardArray: any
 	tileValue: number
 	tileIndex: number
 	checkWinner: () => void
@@ -18,20 +18,22 @@ const Tile = (props: Props) => {
 	const [isHovered, setIsHovered] = createSignal(false);
 	const [tileValue, setTileValue] = createSignal(props.tileValue)
 
-	const takeThisTile = async () => {
+	const takeThisTile = () => {
 		if (tileValue() === 0) {
 			setTileValue(props.xTurn? setTileValue(1) : setTileValue(2))
 			props.xTurn? 
 				props.boardArray[props.tileIndex] = 1 :
 				props.boardArray[props.tileIndex] = 2
 			props.setXTurn(!props.xTurn)
+			props.checkWinner()
+			console.log("curnt:",props.boardArray)
 		}
 	}
 	
 	return (
 		<div
 			class={styles.tile}
-			onClick={() => takeThisTile().then(props.checkWinner)}
+			onClick={takeThisTile}
 			onMouseEnter={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}
 		>

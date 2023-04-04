@@ -1,22 +1,25 @@
-import type { Component } from 'solid-js';
 import styles from './tile.module.css';
 
-const BoardHeader: Component = () => {
-	// SIGNAL HERE
+type Props = {
+	XScore: number
+	YScore: number
+	TieScore: number
+}
 
+const BoardHeader = (props: Props) => {
 	return (
 		<div class={styles.boardFooter}>
 			<div>
 				<p>X (YOU)</p>
-				<b class={styles.score}>0</b>
+				<b class={styles.score}>{props.XScore}</b>
 			</div>
 			<div>
 				<p>TIES</p>
-				<b class={styles.score}>0</b>
+				<b class={styles.score}>{props.TieScore}</b>
 			</div>
 			<div>
 				<p>O (CPU)</p>
-				<b class={styles.score}>0</b>
+				<b class={styles.score}>{props.YScore}</b>
 			</div>
 		</div>
 	);

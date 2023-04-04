@@ -1,12 +1,14 @@
-import type { Component } from 'solid-js';
+
 import styles from './tile.module.css';
 import Redo from "../assets/Redo.png"
 
-const ResetButton: Component = () => {
-	// SIGNAL HERE
+type Props = {
+	resetBoard: () => void
+}
 
+const ResetButton = (props: Props) => {
 	return (
-		<div class={styles.resetButton}>
+		<div onClick={props.resetBoard} class={styles.resetButton}>
 			<img class={styles.smallImage} src={Redo} />
 		</div>
 	);
