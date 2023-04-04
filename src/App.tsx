@@ -15,7 +15,6 @@ const App: Component = () => {
   const [YScore, setYScore] = createSignal(0)
   const [TieScore, setTieScore] = createSignal(0)
   const [openModal, setOpenModal] = createSignal(false)
-  const [isResetingGame, setIsResetingGame] = createSignal(false)
 
   const [testText, setTestText] = createSignal("")
 
@@ -32,7 +31,7 @@ const App: Component = () => {
   }
 
   const showRestartModal = () => {
-    setIsResetingGame(true)
+    setTestText("R")
     setOpenModal(true)
   }
 
@@ -85,7 +84,6 @@ const App: Component = () => {
       <BoardHeader xTurn={xTurn()} showRestartModal={showRestartModal} />
       <Show when={openModal()}>
         <Modal
-          restart={isResetingGame()}
           setOpenModal={setOpenModal}
           resetBoard={resetBoard}
           playNextRound={playNextRound}
