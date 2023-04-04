@@ -1,16 +1,35 @@
-type Props = {}
+import { Setter } from 'solid-js/types/reactive/signal';
+import styles from './tile.module.css';
+
+type Props = {
+	restart?: boolean
+	setOpenModal: Setter<boolean>
+	resetBoard: () => void
+	playNextRound: () => void
+	testText: string
+}
 
 const Modal = (props: Props) => {
+	let winner = ""
+	// props.XhasWon? winner = "X" : winner = "O"
+	let headerText = props.restart ? "RESTART GAME?" : `${props.testText} TAKES THE ROUND`
+	let leftButtonText = props.restart ? "NO, CANCEL" : "QUIT"
+	let rightButtonText = props.restart ? "YES, RESTART" : "NEXT ROUND"
+
+	const confirmResetBoard = () => {
+		props.resetBoard()
+		props.setOpenModal(false)
+	}
+	
 	return (
-		<div style={{ "background": "rgba(0,0,0,0.5)", position: "absolute", "z-index": 1, width: "100%", height: "100%", display: "flex", "align-items": "center", "justify-content": "center" }}>
-			<div style={{ "background-color": "var(--semiDarkNavy)", height: "266px", width: "100%", display: "flex", "flex-direction":"column", "align-items": "center", "justify-content": "center", gap:"24px" }}>
-				<p>RESTART GAME?</p>
-				<div style={{display:"flex", gap:"12px"}}>
-					<button style={{ "background-color":"var(--silver)"}}>NO CANCEL</button>
-					<button style={{ "background-color": "var(--lightYellow)" }}>YES RESTART</button>
+		<div class={styles.blackLayer}>
+			<div class={styles.modalContainer}>
+				<p class={styles.headerText} style={{ color: "var(--silver)" }}>{headerText}</p>
+				<div class={styles.buttonContainer}>
+					<button class={styles.leftButton} onClick={() => props.setOpenModal(false)}>{leftButtonText}</button>
+					<button class={styles.rightButton} onClick={props.restart ? confirmResetBoard : props.playNextRound} >{rightButtonText}</button>
 				</div>
 			</div>
-			
 		</div>
 	)
 }

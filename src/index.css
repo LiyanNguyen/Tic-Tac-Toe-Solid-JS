@@ -19,3 +19,9 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+
+button {
+	font-family: 'Outfit', sans-serif;
+	color: var(--darkNavy);
+	cursor: pointer;
+}

@@ -10,7 +10,7 @@ const BoardHeader = (props: Props) => {
 	return (
 		<div class={styles.boardFooter}>
 			<div>
-				<p>X (YOU)</p>
+				<p>X</p>
 				<b class={styles.score}>{props.XScore}</b>
 			</div>
 			<div>
@@ -18,7 +18,7 @@ const BoardHeader = (props: Props) => {
 				<b class={styles.score}>{props.TieScore}</b>
 			</div>
 			<div>
-				<p>O (CPU)</p>
+				<p>O</p>
 				<b class={styles.score}>{props.YScore}</b>
 			</div>
 		</div>

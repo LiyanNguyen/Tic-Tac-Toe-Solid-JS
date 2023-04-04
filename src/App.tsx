@@ -1,5 +1,5 @@
 import type { Component } from 'solid-js';
-import { For, createSignal } from 'solid-js';
+import { For, createSignal, Show } from 'solid-js';
 import styles from './App.module.css';
 import tileStyles from './components/tile.module.css';
 import BoardHeader from './components/BoardHeader';
@@ -8,31 +8,90 @@ import Tile from './components/Tile';
 import Modal from './components/Modal';
 
 const App: Component = () => {
+  // 0 is blank, 1 is X, 2 is O
   const [boardArray, setBoardArray] = createSignal([0, 0, 0, 0, 0, 0, 0, 0, 0])
   const [xTurn, setXTurn] = createSignal(true)
   const [XScore, setXScore] = createSignal(0)
   const [YScore, setYScore] = createSignal(0)
   const [TieScore, setTieScore] = createSignal(0)
+  const [openModal, setOpenModal] = createSignal(false)
+  const [isResetingGame, setIsResetingGame] = createSignal(false)
+
+  const [testText, setTestText] = createSignal("")
+
+  const showXWonModal = () => {
+    setXScore(prev => prev + 1)
+    setTestText("X")
+    setOpenModal(true)
+  }
+
+  const showOWonModal = () => {
+    setYScore(prev => prev + 1)
+    setTestText("O")
+    setOpenModal(true)
+  }
+
+  const showRestartModal = () => {
+    setIsResetingGame(true)
+    setOpenModal(true)
+  }
 
   const resetBoard = () => {
     setBoardArray([])
     setBoardArray([0, 0, 0, 0, 0, 0, 0, 0, 0])
-    console.log("reset:",boardArray())
+    setXScore(0)
+    setYScore(0)
+    setTieScore(0)
+    setXTurn(true)
   }
 
+  const playNextRound = () => {
+    setBoardArray([])
+    setBoardArray([0, 0, 0, 0, 0, 0, 0, 0, 0])
+    setOpenModal(false)
+    setXTurn(true)
+  }
+
+  // 
+  const winningCombinations = [
+    // Horizontal
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    // Vertical
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    // Diagonal
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
   const checkWinner = () => {
-    // WIP
-    if (boardArray()[0] === boardArray()[1] && boardArray()[2]) {
-      setXScore(prev => prev + 1)
-      // END THE GAME
-      // PUT THE MODAL IN FRONT
+    // Iterate through all winning combinations and check if any of them have the same value
+    for (let i = 0; i < winningCombinations.length; i++) {
+      const [a, b, c] = winningCombinations[i];
+      if (boardArray()[a] !== 0 && boardArray()[a] === boardArray()[b] && boardArray()[b] === boardArray()[c]) {
+        // We have a winner
+        console.log(boardArray()[a])
+        if (boardArray()[a] === 1) showXWonModal()
+        else if (boardArray()[a] === 2) showOWonModal()
+      }
     }
   }
   
   return (
     <div class={styles.container}>
-      <BoardHeader xTurn={xTurn()} resetBoard={resetBoard} />
-      <Modal/>
+      <BoardHeader xTurn={xTurn()} showRestartModal={showRestartModal} />
+      <Show when={openModal()}>
+        <Modal
+          restart={isResetingGame()}
+          setOpenModal={setOpenModal}
+          resetBoard={resetBoard}
+          playNextRound={playNextRound}
+          testText={testText()}
+        />
+      </Show>
       <div class={tileStyles.gameBoard}>
         <For each={boardArray()}>
           {(value, index) => <Tile

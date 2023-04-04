@@ -6,7 +6,7 @@ import XTile from "../assets/XTile.png"
 
 type Props = {
 	xTurn: boolean
-	resetBoard: () => void
+	showRestartModal: () => void
 }
 
 const BoardHeader = (props: Props) => {
@@ -17,7 +17,7 @@ const BoardHeader = (props: Props) => {
 				<img src={OTile} class={styles.headerLeftImage} />
 			</div>
 			<TurnIndicator xTurn={props.xTurn}/>
-			<ResetButton resetBoard={props.resetBoard} />
+			<ResetButton showRestartModal={props.showRestartModal} />
 		</div>
 	);
 };
