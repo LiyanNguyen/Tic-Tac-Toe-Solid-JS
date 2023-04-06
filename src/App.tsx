@@ -8,45 +8,52 @@ import Tile from './components/Tile';
 import Modal from './components/Modal';
 
 const App: Component = () => {
-  // 0 is blank, 1 is X, 2 is O
+  // 0 is blank, 1 is taken by X, 2 is taken by O
   const [boardArray, setBoardArray] = createSignal([0, 0, 0, 0, 0, 0, 0, 0, 0])
   const [xTurn, setXTurn] = createSignal(true)
   const [XScore, setXScore] = createSignal(0)
   const [YScore, setYScore] = createSignal(0)
   const [TieScore, setTieScore] = createSignal(0)
   const [openModal, setOpenModal] = createSignal(false)
+  // 0 if tie, 1 if X wins, 2 if O wins, 3 if restarting game
+  const [modalCondition, setModalCondition] = createSignal(3)
+  const [amountOfTilesTaken, setAmountOfTilesTaken] = createSignal(0)
 
-  const [testText, setTestText] = createSignal("")
+  const showTieModal = () => {
+    setTieScore(prev => prev + 1)
+    setModalCondition(0)
+    setOpenModal(true)
+  }
 
   const showXWonModal = () => {
     setXScore(prev => prev + 1)
-    setTestText("X")
+    setAmountOfTilesTaken(0)
+    setModalCondition(1)
     setOpenModal(true)
   }
 
   const showOWonModal = () => {
     setYScore(prev => prev + 1)
-    setTestText("O")
+    setAmountOfTilesTaken(0)
+    setModalCondition(2)
     setOpenModal(true)
   }
 
   const showRestartModal = () => {
-    setTestText("R")
+    setModalCondition(3)
     setOpenModal(true)
   }
 
-  const resetBoard = () => {
-    setBoardArray([])
-    setBoardArray([0, 0, 0, 0, 0, 0, 0, 0, 0])
+  const resetScores = () => {
     setXScore(0)
     setYScore(0)
     setTieScore(0)
-    setXTurn(true)
   }
 
   const playNextRound = () => {
     setBoardArray([])
     setBoardArray([0, 0, 0, 0, 0, 0, 0, 0, 0])
+    setAmountOfTilesTaken(0)
     setOpenModal(false)
     setXTurn(true)
   }
@@ -67,16 +74,18 @@ const App: Component = () => {
   ];
 
   const checkWinner = () => {
+    setAmountOfTilesTaken(prev => prev + 1)
     // Iterate through all winning combinations and check if any of them have the same value
     for (let i = 0; i < winningCombinations.length; i++) {
       const [a, b, c] = winningCombinations[i];
       if (boardArray()[a] !== 0 && boardArray()[a] === boardArray()[b] && boardArray()[b] === boardArray()[c]) {
         // We have a winner
-        console.log(boardArray()[a])
         if (boardArray()[a] === 1) showXWonModal()
         else if (boardArray()[a] === 2) showOWonModal()
       }
     }
+    // Check for a tie
+    if (amountOfTilesTaken() === 9) showTieModal()
   }
   
   return (
@@ -85,9 +94,9 @@ const App: Component = () => {
       <Show when={openModal()}>
         <Modal
           setOpenModal={setOpenModal}
-          resetBoard={resetBoard}
+          resetScores={resetScores}
           playNextRound={playNextRound}
-          testText={testText()}
+          modalCondition={modalCondition()}
         />
       </Show>
       <div class={tileStyles.gameBoard}>
