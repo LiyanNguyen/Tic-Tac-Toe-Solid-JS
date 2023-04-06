@@ -44,7 +44,6 @@ const Modal = (props: Props) => {
 						<img src={props.modalCondition == 1 ? XTile : OTile} class={styles.image} />
 					</Show>
 					<p class={styles.headerText} style={headerStyle()}>{headerText}</p>
-
 				</div>
 				<div class={styles.buttonContainer}>
 					<button class={styles.leftButton} onClick={() => props.setOpenModal(false)}>{leftButtonText}</button>

@@ -1,9 +1,8 @@
 import { createSignal, Show } from 'solid-js';
 import styles from './tile.module.css';
-import OTile from "../assets/OTile.png"
-import XTile from "../assets/XTile.png"
 import OHover from "../assets/OHover.png"
 import XHover from "../assets/XHover.png"
+import TileImage from './TileImage';
 
 type Props = {
 	xTurn: boolean
@@ -26,7 +25,6 @@ const Tile = (props: Props) => {
 				props.boardArray[props.tileIndex] = 2
 			props.setXTurn(!props.xTurn)
 			props.checkWinner()
-			console.log("curnt:",props.boardArray)
 		}
 	}
 	
@@ -43,7 +41,7 @@ const Tile = (props: Props) => {
 			</Show>
 			{/* when tile is already taken */}
 			<Show when={tileValue() > 0}>
-				<img class={styles.image} src={tileValue() === 1 ? XTile : OTile} />
+				<TileImage tileValue={tileValue()} />
 			</Show>
 		</div>
 	);
