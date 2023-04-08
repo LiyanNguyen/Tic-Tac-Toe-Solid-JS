@@ -1,6 +1,5 @@
 import { Setter } from 'solid-js/types/reactive/signal';
 import { Show, createSignal, onMount } from 'solid-js';
-import styles from './tile.module.css';
 import OTile from "../assets/OTile.png"
 import XTile from "../assets/XTile.png"
 import { styled } from "solid-styled-components";
@@ -104,9 +103,7 @@ const ModalContainer = styled("div")`
 		gap: 16px;
 	}
 
-	.leftButton {
-		background-color: var(--silver);
-		box-shadow: inset 0px -4px 0px #6B8997;
+	button {
 		border-radius: 10px;
 		padding: 15px;
 		border: none;
@@ -114,6 +111,11 @@ const ModalContainer = styled("div")`
 		font-size: 16px;
 		text-transform: uppercase;
 		transition: 0.15s ease;
+	}
+
+	.leftButton {
+		background-color: var(--silver);
+		box-shadow: inset 0px -4px 0px #6B8997;
 
 		&:hover {
 			background-color: var(--silverHover);
@@ -123,13 +125,6 @@ const ModalContainer = styled("div")`
 	.rightButton {
 		background-color: var(--lightYellow);
 		box-shadow: inset 0px -4px 0px #CC8B13;
-		border-radius: 10px;
-		padding: 15px;
-		border: none;
-		font-weight: 700;
-		font-size: 16px;
-		text-transform: uppercase;
-		transition: 0.15s ease;
 
 		&: hover {
 			background-color: var(--lightYellowHover);
