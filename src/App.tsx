@@ -1,11 +1,10 @@
 import type { Component } from 'solid-js';
 import { For, createSignal, Show } from 'solid-js';
-import styles from './App.module.css';
-import tileStyles from './components/tile.module.css';
 import BoardHeader from './components/BoardHeader';
 import BoardFooter from './components/BoardFooter';
 import Tile from './components/Tile';
 import Modal from './components/Modal';
+import { styled } from "solid-styled-components";
 
 const App: Component = () => {
   // 0 is blank, 1 is taken by X, 2 is taken by O
@@ -89,7 +88,7 @@ const App: Component = () => {
   }
   
   return (
-    <div class={styles.container}>
+    <Container>
       <BoardHeader xTurn={xTurn()} showRestartModal={showRestartModal} />
       <Show when={openModal()}>
         <Modal
@@ -99,7 +98,7 @@ const App: Component = () => {
           modalCondition={modalCondition()}
         />
       </Show>
-      <div class={tileStyles.gameBoard}>
+      <GameBoard>
         <For each={boardArray()}>
           {(value, index) => <Tile
             xTurn={xTurn()}
@@ -110,10 +109,32 @@ const App: Component = () => {
             checkWinner={checkWinner}
           />}
         </For>
-      </div>
+      </GameBoard>
       <BoardFooter XScore={XScore()} YScore={YScore()} TieScore={TieScore()} />
-    </div>
+    </Container>
   );
 };
 
 export default App;
+
+
+const Container = styled("div")`
+  background-color: var(--darkNavy);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+`
+
+const GameBoard = styled("div")`
+  width: 460px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  @media screen and (max-width: 500px) {
+		width: 328px;
+	}
+`

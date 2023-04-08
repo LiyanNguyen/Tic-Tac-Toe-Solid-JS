@@ -1,13 +1,13 @@
 import XTile from "../assets/XTile.png"
 import OTile from "../assets/OTile.png"
-import styles from './tile.module.css';
 import { createSignal, onMount } from 'solid-js';
+import { styled } from "solid-styled-components";
 
-type Props = {
+interface ITileImage {
 	tileValue: number
 }
 
-const TileImage = (props: Props) => {
+const TileImage = (props: ITileImage) => {
 	const [scale, setScale] = createSignal(0)
 
 	onMount(() => {
@@ -19,8 +19,19 @@ const TileImage = (props: Props) => {
 	})
 	
 	return (
-		<img class={styles.image} style={{scale:scale()}} src={props.tileValue === 1? XTile : OTile} />
+		<Image style={{scale:scale()}} src={props.tileValue === 1? XTile : OTile} />
 	)
 }
 
 export default TileImage
+
+const Image = styled("img")`
+	width: 64px;
+	height: 64px;
+	transition: 0.25s ease;
+
+	@media screen and (max-width: 500px) {
+		width: 40px;
+		height: 40px;
+	}
+`
