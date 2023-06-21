@@ -49,7 +49,7 @@ const Modal = (props: IModal) => {
 					<p class="headerText" style={headerStyle()}>{headerText()}</p>
 				</div>
 				<div class="buttonContainer">
-					<button class="leftButton" onClick={() => setOpenModal(false)}>{leftButtonText()}</button>
+					<button class="leftButton" onClick={modalCondition === 0 || 1 || 2 ? confirmResetBoard : () => setOpenModal(false)}>{leftButtonText()}</button>
 					<button class="rightButton" onClick={modalCondition === 3 ? confirmResetBoard : playNextRound}>{rightButtonText()}</button>
 				</div>
 			</ModalContainer>
